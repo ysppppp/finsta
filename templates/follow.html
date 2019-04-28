@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <title>Manage your Follows</title>
+    </head>
+    <body>
+        <h1>Search someone you want to follow</h1>
+        <div>
+            <form action="/followsomeone" method="post">
+                <input type="text" name="followee" placeholder="Enter the usename of person you want to follow" required/>
+                <br/>
+                <input type="submit" value="Request Follow">
+            </form>
+        </div>
+        {% if message %}
+            {{ message }}
+        {% endif %}
+        <br/>
+        <h1>follow request</h1>
+        <table style="width:30%">
+          <tr>
+            <th>Follower</th>
+            <th>Status</th>
+          </tr>
+              <form action="/managefollow" method="post">
+            <div>
+                {% for request in pending %}
+                <tr>
+                  <th>{{request.followerUsername}}</th>
+                    <th><a href='/managefollow'><button type ="submit" name={{ request.followerUsername }}  value=1>accept</button><br>
+                  <a href='/managefollow'><button type ="submit" name={{ request.followerUsername }}  value=2>decline</button><br>
+                </tr>
+                {% endfor %}
+            </div>
+        </table>
+        <br/>
+        <a href="/">Go back</a>
+    </body>
+</html>
